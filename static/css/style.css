@@ -7,12 +7,7 @@
 .whitecolor h4{
     line-height: 25px;
 }
-.thumbnail:hover{
-    margin: 0px -4px 0px -4px; 
-    border: 1px solid #ebebeb;
-     -webkit-transition: margin 2s; /* Safari */
-    transition: margin 1s;
-}
+
 .thumbnail{
     border: none;
 }
@@ -21,15 +16,22 @@
     font-weight: bold;
     color: #817e7e
 }
+.notify{
+    border: none;
+    width: 100%;
+    background-color: #e0e0ee;
+    color: #000;
+    padding: 10px 15px 10px 15px;
+}
 .addcart{
     border: none;
+    width: 100%;
     background-color: #e42d05;
     color: #fff;
-    font-weight: bold;
     padding: 10px 15px 10px 15px;
-} 
-.addcart:hover{
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.addcart:hover, .notify:hover{
+    text-decoration: underline;
 }
 .productslider{
     padding: 20px 0 20px 0;

@@ -9,9 +9,10 @@ draw = dt()
 def index():
     return draw.render('index')
 
-@app.route('/produtos')
-def produtos():
-    return draw.render('produtos')
+
+@app.route('/ver-produto')
+def ver_produto():
+    return draw.render('ver-produto')
 
 
 if __name__ == '__main__':
