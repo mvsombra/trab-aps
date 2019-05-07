@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from desenha_tela import DesenhaTela as dt
 
 app = Flask(__name__)
@@ -17,7 +17,24 @@ def ver_produto():
 
 @app.route('/carrinho', methods=['GET', 'POST'])
 def carrinho():
-    return "Produto adicionado"
+    if(request.method == 'POST'):
+        return "Produto adicionado"
+    else:
+        return draw.render('carrinho')
+
+@app.route('/notificacao', methods=['GET', 'POST'])
+def notificacao():
+    return "Notificação atividada"
+    
+
+@app.route('/entrar')
+def entrar():
+    return draw.render('login')
+
+
+@app.route('/cadastrar')
+def cadastrar():
+    return draw.render('cadastro')
 
 
 if __name__ == '__main__':
