@@ -15,5 +15,10 @@ def ver_produto():
     return draw.render('ver-produto')
 
 
+@app.route('/carrinho', methods=['GET', 'POST'])
+def carrinho():
+    return "Produto adicionado"
+
+
 if __name__ == '__main__':
     app.run()

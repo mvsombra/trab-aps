@@ -1,6 +1,15 @@
 {% include "includes/head.html" %}
 {% set img = "http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" %}
         <title>Tapioca do Billy</title>
+        <link href="http://cdn.shopify.com/s/files/1/0067/5617/1846/t/2/assets/timber.scss.css" rel="stylesheet" type="text/css" media="all" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     </head>
 
     <body>
@@ -15,6 +24,28 @@
                             <div class="col-md-5">
                                 <div class="product-details-large" id="ProductPhoto">
                                     <img id="ProductPhotoImg" class="product-zoom" data-image-id="" data-zoom-image="{{ img }}" src="{{ img }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-7">
+                                <div class="single-product-content">
+                                    <div class="product-details">
+                                        <h1 class="single-product-name">Tapioca B1</h1>
+                                        <div class="single-product-price">
+                                            <div class="product-discount"><span class="price" id="ProductPrice"><span class=money>R$1.99</span></span></div>
+                                        </div>
+                                        <div class="product-info">
+                                            Melhor tapioca do Brasil, talvez até de Fortaleza.
+                                        </div>
+                                        <row>
+                                            <div class="col-md-5">
+                                                <form method="POST" action="/carrinho">
+                                                    <input type="hidden" name="qtd" value="1">
+                                                    <button type="submit" name="add" class="addcart">Adicionar ao carrinho</button>
+                                                </form>
+                                            </div>
+                                        </row>
+                                    </div>
                                 </div>
                             </div>
                         </div>
