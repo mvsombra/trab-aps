@@ -22,10 +22,11 @@ def carrinho():
     else:
         return draw.render('carrinho')
 
+
 @app.route('/notificacao', methods=['GET', 'POST'])
 def notificacao():
     return "Notificação atividada"
-    
+
 
 @app.route('/entrar')
 def entrar():
