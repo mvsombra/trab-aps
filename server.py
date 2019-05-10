@@ -39,8 +39,18 @@ def entrar():
 
     if(request.method == 'POST'):
         session.pop('user', None)
-        return str(dba.auth_user(request.form['email'], request.form['senha']))
-    return draw.render('login')
+        if(dba.auth_user(request.form['email'], request.form['senha'])):
+            session.permanent = True
+            session['user'] = request.form['email']
+            return redirect(url_for('index'))
+        else:
+            return draw.render('login')
+
+
+@app.route('/sair')
+def sair():
+    session.pop('user', None)
+    return redirect(url_for('index'))
 
 
 @app.route('/cadastrar')
