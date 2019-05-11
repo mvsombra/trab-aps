@@ -62,13 +62,17 @@ def cadastrar():
 
     if(request.method == 'POST'):
         session.pop('user', None)
-        if(len(dba.select_users(email=request.form['email'])) > 0):
+        if(len(dba.select_users(email=request.form['email'])) == 0):
             if(request.form['senha'] == request.form['senha2']):
                 dba.insert_user(request.form['nome'], request.form['cpf'],
                                 request.form['data_nasc'],
                                 request.form['telefone'],
                                 request.form['endereco'],
                                 request.form['email'], request.form['senha'])
+
+                session.permanent = True
+                session['user'] = request.form['email']
+                return redirect(url_for('index'))
             else:
                 return draw.render('cadastro')
         else:
