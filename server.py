@@ -45,6 +45,8 @@ def entrar():
             return redirect(url_for('index'))
         else:
             return draw.render('login')
+    else:
+        return draw.render('login')
 
 
 @app.route('/sair')
@@ -53,8 +55,26 @@ def sair():
     return redirect(url_for('index'))
 
 
-@app.route('/cadastrar')
+@app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
+    if(g.user):
+        return redirect(url_for('index'))
+
+    if(request.method == 'POST'):
+        session.pop('user', None)
+        if(len(dba.select_users(email=request.form['email'])) > 0):
+            if(request.form['senha'] == request.form['senha2']):
+                dba.insert_user(request.form['nome'], request.form['cpf'],
+                                request.form['data_nasc'],
+                                request.form['telefone'],
+                                request.form['endereco'],
+                                request.form['email'], request.form['senha'])
+            else:
+                return draw.render('cadastro')
+        else:
+            return draw.render('cadastro')
+    else:
+        pass
     return draw.render('cadastro')
 
 

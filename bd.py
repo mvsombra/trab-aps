@@ -32,6 +32,15 @@ class AcessoBD:
         else:
             return self.db.cur.fetchall()
 
+    def insert_user(self, nome, cpf, dt_nasc, telefone, endereco,
+                    email, senha):
+        q = "INSERT INTO usuario VALUES ('{}', '{}', '{}', '{}', '{}', " \
+            "'{}', '{}', 0);"
+        q = q.format(nome, cpf, dt_nasc, telefone, endereco, email, senha)
+
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
     def auth_user(self, email, senha):
         senha_user = self.select_users(email=email, max_results=1)[6]
         return senha == senha_user
