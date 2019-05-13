@@ -11,12 +11,22 @@ draw = dt()
 
 @app.route('/')
 def index():
-    return draw.render('index')
+    p = dba.select_produtos(ultimos=9)
+    return draw.render('index', p)
 
 
-@app.route('/ver-produto')
-def ver_produto():
-    return draw.render('ver-produto')
+@app.route('/produto/', defaults={'cod': None})
+@app.route('/produto/<cod>')
+def ver_produto(cod):
+    if(not cod):
+        return redirect(url_for('index'))
+
+    try:
+        prod = dba.select_produtos(cod=cod)[0]
+    except IndexError:
+        return redirect(url_for('index'))
+
+    return draw.render('ver-produto', prod)
 
 
 @app.route('/carrinho', methods=['GET', 'POST'])

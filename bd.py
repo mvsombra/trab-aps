@@ -32,6 +32,28 @@ class AcessoBD:
         else:
             return self.db.cur.fetchall()
 
+    def select_produtos(self, ultimos=0, busca=None, cod=None):
+        q = "SELECT * FROM produto {}"
+
+        if(busca):
+            busca = '%' + busca.lower() + '%'
+            ultimos = 0
+            q = q.format("WHERE LOWER(nome) LIKE '{}' ".format(busca))
+        elif(cod):
+            q = q.format("WHERE cod='{}' ".format(cod))
+        else:
+            q = q.format('')
+
+        # limita os resultados ou não
+        if(ultimos > 0):
+            q += " LIMIT {};".format(ultimos)
+        else:
+            q += ';'
+
+        # realiza a busca e retorna
+        self.db.cur.execute(q)
+        return self.db.cur.fetchall()
+
     def insert_user(self, nome, cpf, dt_nasc, telefone, endereco,
                     email, senha):
         q = "INSERT INTO usuario VALUES ('{}', '{}', '{}', '{}', '{}', " \

@@ -5,5 +5,5 @@ class DesenhaTela:
     def render(self, page, *args):
         page = page + '.html'
         if(len(args) > 0):
-            pass
+            return render_template(page, args=args)
         return render_template(page)
