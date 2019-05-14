@@ -42,17 +42,20 @@ class AcessoBD:
             pass
 
         if(cat):
-            q = q.format(cat, qtd)
+            s = "WHERE tipo={}".format(cat)
+            q = q.format(s, qtd)
         else:
             q = q.format('', qtd)
         # realiza a busca e retorna
         self.db.cur.execute(q)
         return self.db.cur.fetchall()
 
-    def select_produtos(self, ultimos=0, busca=None, cod=None):
+    def select_produtos(self, ultimos=0, busca=None, cod=None, cat=None):
         q = "SELECT * FROM produto {}"
-
-        if(busca):
+        
+        if(cat):
+            q = q.format("WHERE tipo={} ".format(cat))
+        elif(busca):
             busca = '%' + busca.lower() + '%'
             ultimos = 0
             q = q.format("WHERE LOWER(nome) LIKE '{}' ".format(busca))
