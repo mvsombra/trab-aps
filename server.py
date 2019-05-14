@@ -11,8 +11,16 @@ draw = dt()
 
 @app.route('/')
 def index():
-    p = dba.select_produtos(ultimos=9)
-    return draw.render('index', p)
+    p = dba.select_produtos(ultimos=6)
+    sug = dba.produtos_mais_vendidos()
+    return draw.render('index', p, sug)
+
+
+@app.route('/produtos')
+def produtos():
+    p = dba.select_produtos()
+    sug = dba.produtos_mais_vendidos()
+    return draw.render('produtos', p, sug)
 
 
 @app.route('/produto/', defaults={'cod': None})
