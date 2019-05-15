@@ -93,7 +93,10 @@ def add_produto():
         return redirect(url_for('index'))
 
     if(request.method == 'POST'):
-        return str(request.form)
+        dba.insert_produto(request.form['cod'], request.form['nome'],
+                           request.form['preco'], request.form['disp'],
+                           request.form['tipo'], request.form['desc'])
+        return redirect(url_for('index'))
 
     return draw.render('addproduto')
 
