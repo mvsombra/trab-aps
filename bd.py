@@ -83,8 +83,12 @@ class AcessoBD:
         self.db.cur.execute(q)
         self.db.conn.commit()
 
-    def insert_produto():
-        pass
+    def insert_produto(self, cod, nome, preco, disp, tipo, desc):
+        q = "INSERT INTO produto VALUES ('{}', '{}', {}, {}, {}, '{}');"
+        q = q.format(cod, nome, preco, disp, tipo, desc)
+
+        self.db.cur.execute(q)
+        self.db.conn.commit()
 
     def auth_user(self, email, senha):
         senha_user = self.select_users(email=email, max_results=1)[6]

@@ -2,9 +2,11 @@ from flask import Flask, request, g, session, redirect, url_for
 from sessions import RedisSessionInterface
 from desenha_tela import DesenhaTela as dt
 from bd import AcessoBD
+import os
 
 dba = AcessoBD()
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 app.session_interface = RedisSessionInterface()
 draw = dt()
 
