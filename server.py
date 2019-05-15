@@ -19,11 +19,14 @@ def index():
 @app.route('/produtos')
 def produtos():
     catlist = ["tapiocas", "bebidas"]
-    if("cat" not in request.args or "cat" not in catlist):
+    if("cat" not in request.args):
         p = dba.select_produtos()
         sug = dba.produtos_mais_vendidos()
     else:
-        cat = catlist.index(request.args["cat"])
+        if(request.args["cat"] in catlist):
+            cat = catlist.index(request.args["cat"])
+        else:
+            cat = None
         p = dba.select_produtos(cat=cat)
         sug = dba.produtos_mais_vendidos(cat=cat)
     return draw.render('produtos', p, sug)

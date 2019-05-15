@@ -41,8 +41,8 @@ class AcessoBD:
         else:
             pass
 
-        if(cat):
-            s = "WHERE tipo={}".format(cat)
+        if(cat == 0 or cat == 1):
+            s = "WHERE tipo={} ".format(cat)
             q = q.format(s, qtd)
         else:
             q = q.format('', qtd)
@@ -52,8 +52,8 @@ class AcessoBD:
 
     def select_produtos(self, ultimos=0, busca=None, cod=None, cat=None):
         q = "SELECT * FROM produto {}"
-        
-        if(cat):
+
+        if(cat == 0 or cat == 1):
             q = q.format("WHERE tipo={} ".format(cat))
         elif(busca):
             busca = '%' + busca.lower() + '%'
