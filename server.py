@@ -82,6 +82,17 @@ def sair():
     return redirect(url_for('index'))
 
 
+@app.route('/add-produto')
+def add_produto():
+    if(not g.user):
+        return redirect(url_for(index))
+
+    if(g.user[7] == 0):
+        return redirect(url_for(index))
+
+    return "produto cadastrado"
+
+
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
     if(g.user):
@@ -113,7 +124,7 @@ def cadastrar():
 def before_request():
     g.user = None
     if('user' in session):
-        g.user = session['user']
+        g.user = dba.select_users(email=session['user'], max_results=1)
 
 
 if __name__ == '__main__':
