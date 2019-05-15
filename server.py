@@ -82,15 +82,18 @@ def sair():
     return redirect(url_for('index'))
 
 
-@app.route('/add-produto')
+@app.route('/add-produto', methods=['GET', 'POST'])
 def add_produto():
     if(not g.user):
-        return redirect(url_for(index))
+        return redirect(url_for('index'))
 
     if(g.user[7] == 0):
-        return redirect(url_for(index))
+        return redirect(url_for('index'))
 
-    return "produto cadastrado"
+    if(request.method == 'POST'):
+        return str(request.form)
+
+    return draw.render('addproduto')
 
 
 @app.route('/cadastrar', methods=['GET', 'POST'])
