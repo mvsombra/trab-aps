@@ -74,6 +74,29 @@ class AcessoBD:
         self.db.cur.execute(q)
         return self.db.cur.fetchall()
 
+    def select_carrinho(self, user):
+        q = "SELECT * FROM produto INNER JOIN carrinho ON cod=prod " \
+            "WHERE cliente='{}' GROUP BY cod;"
+        # realiza a busca e retorna
+        self.db.cur.execute(q)
+        return self.db.cur.fetchall()
+
+    def delete_carrinho(self, cliente, prod):
+        q = "DELETE FROM carrinho WHERE prod='{}' AND cliente='{}';"
+        q = q.format(prod, cliente)
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
+    def esvaziar_carrinho(self, cliente):
+        q = "DELETE FROM carrinho WHERE cliente='{}';".format(cliente)
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
+    def insert_carrinho(self, cliente, prod):
+        q = "INSERT INTO carrinho VALUES ('{}', '{}');"
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
     def insert_user(self, nome, cpf, dt_nasc, telefone, endereco,
                     email, senha):
         q = "INSERT INTO usuario VALUES ('{}', '{}', '{}', '{}', '{}', " \
@@ -85,7 +108,7 @@ class AcessoBD:
 
     def insert_produto(self, cod, nome, preco, disp, tipo, desc):
         q = "INSERT INTO produto VALUES ('{}', '{}', {}, {}, {}, '{}');"
-        q = q.format(cod, nome, preco, disp, tipo, desc)
+        q = q.format(cod, preco, disp, nome, tipo, desc)
 
         self.db.cur.execute(q)
         self.db.conn.commit()
