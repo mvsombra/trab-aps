@@ -74,6 +74,13 @@ class AcessoBD:
         self.db.cur.execute(q)
         return self.db.cur.fetchall()
 
+    def select_notificacao(self):
+        q = "SELECT cliente FROM notificacao INNER JOIN produto ON cod=prod " \
+            "WHERE disponibildade='True' GROUP BY cliente;"
+        # realiza a busca e retorna
+        self.db.cur.execute(q)
+        return self.db.cur.fetchall()
+
     def select_carrinho(self, user):
         q = "SELECT * FROM produto INNER JOIN carrinho ON cod=prod " \
             "WHERE cliente='{}' GROUP BY cod;"
@@ -87,13 +94,24 @@ class AcessoBD:
         self.db.cur.execute(q)
         self.db.conn.commit()
 
+    def delete_notificacao(self):
+        q = "DELETE FROM notificacao WHERE prod IN (SELECT cod FROM produto " \
+            "WHERE disponibilidade='true');"
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
     def esvaziar_carrinho(self, cliente):
         q = "DELETE FROM carrinho WHERE cliente='{}';".format(cliente)
         self.db.cur.execute(q)
         self.db.conn.commit()
 
+    def insert_notificacao(self, cod, prod):
+        q = "INSERT INTO notificacao VALUES ('{}', '{}');".format(cod, prod)
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
     def insert_carrinho(self, cliente, prod):
-        q = "INSERT INTO carrinho VALUES ('{}', '{}');"
+        q = "INSERT INTO carrinho VALUES ('{}', '{}');".format(cliente, prod)
         self.db.cur.execute(q)
         self.db.conn.commit()
 
@@ -108,6 +126,14 @@ class AcessoBD:
 
     def insert_produto(self, cod, nome, preco, disp, tipo, desc):
         q = "INSERT INTO produto VALUES ('{}', '{}', {}, {}, {}, '{}');"
+        q = q.format(cod, preco, disp, nome, tipo, desc)
+
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
+    def update_produto(self, cod, nome, preco, disp, tipo, desc):
+        q = "UPDATE produto SET nome='{}', preco='{}', disponibilidade={}, " \
+            "tipo={}, descricao='{}' WHERE cod={};"
         q = q.format(cod, preco, disp, nome, tipo, desc)
 
         self.db.cur.execute(q)

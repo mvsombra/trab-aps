@@ -3,6 +3,8 @@ from sessions import RedisSessionInterface
 from desenha_tela import DesenhaTela as dt
 from bd import AcessoBD
 import os
+import requests
+import pickle
 
 dba = AcessoBD()
 app = Flask(__name__)
@@ -51,14 +53,21 @@ def ver_produto(cod):
 @app.route('/carrinho', methods=['GET', 'POST'])
 def carrinho():
     if(request.method == 'POST'):
-        return "Produto adicionado"
-    else:
-        return draw.render('carrinho')
+        dba.insert_carrinho(session['user'], request.form['prod'])
+
+    return draw.render('carrinho', dba.select_carrinho(session['user']))
 
 
-@app.route('/notificacao', methods=['GET', 'POST'])
+@app.route('/excluir-carrinho', methods=['POST'])
+def excluir_carrinho():
+    dba.delete_carrinho(session['user'], request.form['prod'])
+    return redirect(url_for('carrinho'))
+
+
+@app.route('/notificacao', methods=['POST'])
 def notificacao():
-    return "Notificação atividada"
+    dba.insert_notificacao(request.form['prod'], session['user'])
+    return redirect(url_for(index))
 
 
 @app.route('/entrar', methods=['GET', 'POST'])
@@ -101,6 +110,25 @@ def add_produto():
     return draw.render('addproduto')
 
 
+@app.route('/edit-produto/', defaults={'prod': None})
+@app.route('/edit-produto/<prod>', methods=['GET', 'POST'])
+def edit_produto(prod):
+    if(not g.user or not prod):
+        return redirect(url_for('index'))
+
+    if(g.user[7] == 0):
+        return redirect(url_for('index'))
+
+    if(request.method == 'POST'):
+        dba.update_produto(request.form['cod'], request.form['nome'],
+                           request.form['preco'], request.form['disp'],
+                           request.form['tipo'], request.form['desc'])
+        return redirect(url_for('index'))
+
+    produto = dba.select_produtos(cod=prod)
+    return draw.render('editproduto', produto)
+
+
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
     if(g.user):
@@ -130,9 +158,37 @@ def cadastrar():
 
 @app.before_request
 def before_request():
+    emails = dba.select_notificacao()
+    notificar_usuarios(emails)
+    dba.delete_notificacao()
     g.user = None
     if('user' in session):
         g.user = dba.select_users(email=session['user'], max_results=1)
+
+
+def notificar_usuarios(emails):
+    credentials = pickle.load(open('mailgun.pkl', 'rb'))
+    MAILGUN_DOMAIN_NAME = credentials['nome']
+    MAILGUN_API_KEY = credentials['key']
+    corpo = 'O produto que você esperava chegou na nossa loja!'
+    corpo += ' Venha conferir!\n'
+    corpo += 'https://tapiocadobilly.herokuapp.com'
+    destino = []
+
+    for cliente in emails:
+        destino.append(cliente[0])
+    url = 'https://api.mailgun.net/v3/{}/messages'
+    url = url.format(MAILGUN_DOMAIN_NAME)
+    auth = ('api', MAILGUN_API_KEY)
+    dados = {
+        'from': 'Mailgun User <postmaster@{}>'.format(MAILGUN_DOMAIN_NAME),
+        'to': destino,
+        'subject': 'Tapioca do Billy - Seu produto está disponível',
+        'text': corpo
+    }
+
+    response = requests.post(url, auth=auth, data=dados)
+    response.raise_for_status()
 
 
 if __name__ == '__main__':

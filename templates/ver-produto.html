@@ -59,9 +59,13 @@
                                                 {% else %}
                                                 <form method="POST" action="/notificacao">
                                                     <input type="hidden" name="prod" value="{{ prod[0] }}">
-                                                    <input type="hidden" name="qtd" value="1">
                                                     <button type="submit" name="add" class="notify">Receber Notificação</button>
                                                 </form>
+                                                {% endif %}
+                                                {% if g.user[7] > 0 %}
+                                                    <a href="/edit-produto/{{ prod[0] }}" class="btn btn-primary" style="color:white;" role="button">
+                                                        Editar Produto
+                                                    </a>
                                                 {% endif %}
                                             </div>
                                         </row>

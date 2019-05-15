@@ -1,0 +1,79 @@
+{% include "includes/head.html" %}
+        <title>Tapioca do Billy</title>
+    </head>
+
+    <!-- corpo do site -->
+<body class="text-center">
+    <form class="form-signin" method="post">
+        <img class="mb-4" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Adicionar Produto</h1>
+        <label for="inputNome" class="sr-only">Código</label>
+        <input type="text" readonly id="inputCodigo2" maxlength="10" class="form-control" placeholder="Código" name="cod" required>
+        <label for="inputCodigo2" class="sr-only">Nome</label>
+        <input type="text" id="inputNome" class="form-control" placeholder="Nome" name="nome" required>
+        <label for="inpuPreco" class="sr-only">Preço</label>
+        <input type="number" min=1 step="any" id="inputPreco" class="form-control" placeholder="Preço" name="preco" required>
+        <label for="inputDisponibilidade" class="sr-only">Disponibilidade</label>
+        <input type="number" min=0 max=1 id="inputDisponibilidade" class="form-control" placeholder="Disponibilidade" name="disp" required>
+        <label for="inputTipo" class="sr-only">Tipo</label>
+        <input type="number" min=0 max=1 id="inputTipo" class="form-control" placeholder="Tipo" name="tipo" required>
+        <label for="inputDescricao" class="sr-only">Descrição</label>
+        <input type="text" id="inputDescricao" class="form-control" placeholder="Descrição" name="descricao" required>
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Adicionar Produto</button>
+        <p class="mt-5 mb-3 text-muted"><span id="copyright">© 2019 Tapioca do Billy - Todos os direitos Reservados</span></p>
+    </form>
+</body>
+
+<style type="text/css">
+    html,
+body {
+  height: 100%;
+}
+body {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"], .form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+#inputPassword{
+    margin-bottom: -1px !important;
+}
+</style>
+</html>

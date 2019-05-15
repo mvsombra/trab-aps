@@ -31,7 +31,6 @@
                             <h6>Produto Indisponível</h6>
                             <form method="POST" action="/notificacao">
                                 <input type="hidden" name="prod" value="{{ sugestao[0] }}">
-                                <input type="hidden" name="qtd" value="1">
                                 <button type="submit" name="add" class="notify">Receber Notificação</button>
                             </form>
                             {% endif %}
@@ -68,7 +67,6 @@
                                                     <h6>Produto Indisponível</h6>
                                                     <form method="POST" action="/notificacao">
                                                         <input type="hidden" name="prod" value="{{ args[0][0] }}">
-                                                        <input type="hidden" name="qtd" value="1">
                                                         <button type="submit" name="add" class="notify">Receber Notificação</button>
                                                     </form>
                                                     {% endif %}
