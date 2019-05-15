@@ -67,7 +67,7 @@ def excluir_carrinho():
 @app.route('/notificacao', methods=['POST'])
 def notificacao():
     dba.insert_notificacao(request.form['prod'], session['user'])
-    return redirect(url_for(index))
+    return redirect(url_for('index'))
 
 
 @app.route('/entrar', methods=['GET', 'POST'])
@@ -103,8 +103,8 @@ def add_produto():
 
     if(request.method == 'POST'):
         dba.insert_produto(request.form['cod'], request.form['nome'],
-                           request.form['preco'], request.form['disp'],
-                           request.form['tipo'], request.form['desc'])
+                           request.form['preco'], bool(request.form['disp']),
+                           request.form['tipo'], request.form['descricao'])
         return redirect(url_for('index'))
 
     return draw.render('addproduto')
@@ -177,18 +177,20 @@ def notificar_usuarios(emails):
 
     for cliente in emails:
         destino.append(cliente[0])
-    url = 'https://api.mailgun.net/v3/{}/messages'
-    url = url.format(MAILGUN_DOMAIN_NAME)
-    auth = ('api', MAILGUN_API_KEY)
-    dados = {
-        'from': 'Mailgun User <postmaster@{}>'.format(MAILGUN_DOMAIN_NAME),
-        'to': destino,
-        'subject': 'Tapioca do Billy - Seu produto está disponível',
-        'text': corpo
-    }
 
-    response = requests.post(url, auth=auth, data=dados)
-    response.raise_for_status()
+    if(len(destino) > 0):
+        url = 'https://api.mailgun.net/v3/{}/messages'
+        url = url.format(MAILGUN_DOMAIN_NAME)
+        auth = ('api', MAILGUN_API_KEY)
+        dados = {
+            'from': 'Mailgun User <postmaster@{}>'.format(MAILGUN_DOMAIN_NAME),
+            'to': destino,
+            'subject': 'Tapioca do Billy - Seu produto está disponível',
+            'text': corpo
+        }
+
+        response = requests.post(url, auth=auth, data=dados)
+        response.raise_for_status()
 
 
 if __name__ == '__main__':

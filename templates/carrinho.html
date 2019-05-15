@@ -1,4 +1,5 @@
 {% include "includes/head.html" %}
+{% set carrinho = args[0] %}
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
         <title>Tapioca do Billy</title>
     </head>
@@ -10,25 +11,26 @@
         <!-- lista de produtos -->
         <div class="container">
             <div class="card-body">
+                {% for item in carrinho %}
                 <div class="row">
                     <div class="col-xs-2 col-md-2">
                         <img class="img-responsive" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" width=100%>
                     </div>
 
                     <div class="col-xs-4 col-md-6">
-                        <h4 class="product-name"><strong>Tapioca B1</strong></h4><h4><small>Melhor tapioca do Brasil, talvez até de Fortaleza.</small></h4>
+                        <h4 class="product-name"><strong>{{ item[3] }}</strong></h4><h4><small>{{ item[5] }}</small></h4>
                     </div>
 
                     <div class="col-xs-6 col-md-4 row">
                         <div class="col-xs-6 col-md-6 text-right" style="padding-top: 5px">
-                            <h6><strong>R$ 1.99 <span class="text-muted">x</span></strong></h6>
+                            <h6><strong>R${{ item[1] }} <span class="text-muted">x</span></strong></h6>
                         </div>
                         <div class="col-xs-4 col-md-4">
-                            <input type="text" class="form-control input-sm" value="1">
+                            <input type="text" class="form-control input-sm" value="{{ item[6] }}">
                         </div>
                         <div class="col-xs-2 col-md-2">
                             <form action="/excluir-carrinho" method="post">
-                                <input type="hidden" name="prod" value="1234567890">
+                                <input type="hidden" name="prod" value="{{ item[0] }}">
                                 <button type="submit" class="btn btn-outline-danger btn-xs">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
@@ -37,6 +39,7 @@
                     </div>
                 </div>
                 <hr>
+                {% endfor %}
             </div>
         </div>
         <div class="container" style="margin-bottom: 50px;">

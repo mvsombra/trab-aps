@@ -60,14 +60,14 @@
                                                     {% if produtos [j][2] %}
                                                     <h6>Preço: R${{ produtos[j][1] }}</h6>
                                                     <form method="POST" action="/carrinho">
-                                                        <input type="hidden" name="prod" value="{{ args[0][0] }}">
+                                                        <input type="hidden" name="prod" value="{{ produtos[j][0] }}">
                                                         <input type="hidden" name="qtd" value="1">
                                                         <button type="submit" name="add" class="addcart">Adicionar ao carrinho</button>
                                                     </form>
                                                     {% else %}
                                                     <h6>Produto Indisponível</h6>
                                                     <form method="POST" action="/notificacao">
-                                                        <input type="hidden" name="prod" value="{{ args[0][0] }}">
+                                                        <input type="hidden" name="prod" value="{{ produtos[j][0] }}">
                                                         <input type="hidden" name="qtd" value="1">
                                                         <button type="submit" name="add" class="notify">Receber Notificação</button>
                                                     </form>

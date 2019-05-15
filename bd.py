@@ -76,14 +76,15 @@ class AcessoBD:
 
     def select_notificacao(self):
         q = "SELECT cliente FROM notificacao INNER JOIN produto ON cod=prod " \
-            "WHERE disponibildade='True' GROUP BY cliente;"
+            "WHERE disponibilidade='True' GROUP BY cliente;"
         # realiza a busca e retorna
         self.db.cur.execute(q)
         return self.db.cur.fetchall()
 
     def select_carrinho(self, user):
-        q = "SELECT * FROM produto INNER JOIN carrinho ON cod=prod " \
-            "WHERE cliente='{}' GROUP BY cod;"
+        q = "SELECT cod, preco, disponibilidade, nome, tipo, descricao, " \
+            "count(prod) FROM produto INNER JOIN carrinho ON cod=prod WHERE " \
+            "cliente='{}' group by cod;".format(user)
         # realiza a busca e retorna
         self.db.cur.execute(q)
         return self.db.cur.fetchall()
@@ -111,7 +112,7 @@ class AcessoBD:
         self.db.conn.commit()
 
     def insert_carrinho(self, cliente, prod):
-        q = "INSERT INTO carrinho VALUES ('{}', '{}');".format(cliente, prod)
+        q = "INSERT INTO carrinho VALUES ('{}', '{}');".format(prod, cliente)
         self.db.cur.execute(q)
         self.db.conn.commit()
 
@@ -125,8 +126,9 @@ class AcessoBD:
         self.db.conn.commit()
 
     def insert_produto(self, cod, nome, preco, disp, tipo, desc):
-        q = "INSERT INTO produto VALUES ('{}', '{}', {}, {}, {}, '{}');"
+        q = "INSERT INTO produto VALUES ('{}', {}, {}, '{}', {}, '{}');"
         q = q.format(cod, preco, disp, nome, tipo, desc)
+        print(q)
 
         self.db.cur.execute(q)
         self.db.conn.commit()
