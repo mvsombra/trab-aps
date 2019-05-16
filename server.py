@@ -20,6 +20,27 @@ def index():
     return draw.render('index', p, sug)
 
 
+@app.route('/dashboard')
+def dashboard():
+    if(not g.user):
+        return redirect(url_for('index'))
+    
+    if(g.user[7] == 0):
+        return redirect(url_for('index'))
+    if("q" not in request.args):
+        return redirect(url_for('index'))
+    
+    q = request.args["q"]
+    if(q == "item"):
+        produtos = dba.produtos_mais_vendidos(item=False)
+        return draw.render('dashboard', produtos)
+    elif(q == "valor"):
+        produtos = dba.produtos_mais_vendidos()
+        return draw.render('dashboard', produtos)
+    else:
+        return redirect(url_for('index'))
+
+
 @app.route('/produtos')
 def produtos():
     catlist = ["tapiocas", "bebidas"]

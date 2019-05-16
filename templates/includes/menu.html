@@ -36,6 +36,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/add-produto">Adicionar Produto</a>
                     </li>
+
+                    <li class="nav-item dropdown dmenu">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Dashboard
+                        </a>
+                        <div class="dropdown-menu sm-menu">
+                            <a class="dropdown-item" href="/dashboard?q=item">Por Itens</a>
+                            <a class="dropdown-item" href="/dashboard?q=valor">Por Valor</a>
+                        </div>
+                    </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/sair">Sair</a>

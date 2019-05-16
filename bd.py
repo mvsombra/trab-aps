@@ -32,14 +32,17 @@ class AcessoBD:
         else:
             return self.db.cur.fetchall()
 
-    def produtos_mais_vendidos(self, item=True, valor=False, qtd=1, cat=None):
+    def produtos_mais_vendidos(self, item=True, valor=True, qtd=1, cat=None):
         if(item):
             q = "SELECT * FROM produto WHERE cod in (select cod from " \
                 "(select cod, count(item) from produto inner join " \
                 "produto_vendido on item=cod {}group by cod order by " \
                 "count desc limit {}) as tb);"
         else:
-            pass
+            q = "SELECT * FROM produto WHERE cod in (SELECT cod FROM " \
+                "(SELECT cod, SUM(preco) FROM produto INNER JOIN " \
+                "produto_vendido ON item=cod {}GROUP BY cod ORDER BY " \
+                "SUM DESC LIMIT {}) AS tb);"
 
         if(cat == 0 or cat == 1):
             s = "WHERE tipo={} ".format(cat)
