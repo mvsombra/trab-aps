@@ -35,6 +35,7 @@ class AcessoBD:
     def insert_compra(self, prod, user):
         q = "INSERT INTO produto_vendido (item, cliente) VALUES " \
             "('{}', '{}');".format(prod, user)
+        print(q)
         self.db.cur.execute(q)
         self.db.conn.commit()
 
