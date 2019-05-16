@@ -15,7 +15,9 @@
             <div class="card-body">
                 {% for item in carrinho %}
                 {% set ns.valor_total = ns.valor_total + (item[1] * item[6]) %}
+                <div class=".d-none">
                 {{ lista_produtos.append(item[0]) }}
+                </div>
                 <div class="row">
                     <div class="col-xs-2 col-md-2">
                         <img class="img-responsive" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" width=100%>
@@ -48,7 +50,7 @@
         </div>
         <div class="container" style="margin-bottom: 50px;">
             <div class="container">
-                <button type="button" data-toggle="modal" id="modal-button" data-target="#password-modal" class="btn btn-danger pull-right">Finalizar Compra</button>
+                <button type="button" data-toggle="modal" id="modal-button" data-target="#password-modal" class="btn btn-danger pull-right">Efetuar Pagamento</button>
                 <div class="pull-right" style="margin: 5px">
                     Valor Total: <b>R${{ ns.valor_total }}</b>
                 </div>
@@ -85,12 +87,11 @@
                         </div>
                         
                         <div class="modal-footer">
-                            {{ lista_produtos }}
-                            <!-- {% for prod  in lista_produtos %} 
+                            {% for prod  in lista_produtos %} 
                             <input type="text" name="{{ loop.counter }}" value="{{ prod }}">
-                            {% endfor %} -->
+                            {% endfor %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger">Excluir</button>
+                            <button type="submit" class="btn btn-danger">Finalizar Compra</button>
                         </div>
                     </form>
                 </div>
