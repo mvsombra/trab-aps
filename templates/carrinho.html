@@ -1,6 +1,7 @@
 {% include "includes/head.html" %}
 {% set carrinho = args[0] %}
 {% set ns = namespace(valor_total = 0) %}
+{% set lista_produtos = [] %}
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
         <title>Tapioca do Billy</title>
     </head>
@@ -14,6 +15,7 @@
             <div class="card-body">
                 {% for item in carrinho %}
                 {% set ns.valor_total = ns.valor_total + (item[1] * item[6]) %}
+                {% lista_produtos.append(item[0]) %}
                 <div class="row">
                     <div class="col-xs-2 col-md-2">
                         <img class="img-responsive" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" width=100%>
@@ -49,6 +51,47 @@
                 <a href="#" class="btn btn-danger pull-right">Finalizar Compra</a>
                 <div class="pull-right" style="margin: 5px">
                     Valor Total: <b>R${{ ns.valor_total }}</b>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="password-modal" aria-labelledby="password-modal" aria-hidden="true" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Insira os dados do seu cartão</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <form method="post" action="/compra">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nome" class="col-form-label">Nome</label>
+                                <input type="text" required class="form-control" id="nome" name="nome" placeholder="Nome">
+                            </div>
+                            <div class="form-group">
+                                <label for="num" class="col-form-label">Nº do cartão</label>
+                                <input type="text" required class="form-control" id="num" name="num" placeholder="Nº do cartão">
+                            </div>
+                            <div class="form-group">
+                                <label for="ccv" class="col-form-label">CCV</label>
+                                <input type="text" required class="form-control" id="ccv" name="ccv" placeholder="CCV">
+                            </div>
+                            <div class="form-group">
+                                <label for="data" class="col-form-label">Data Vencimento</label>
+                                <input type="date" required class="form-control" id="data" name="data" placeholder="Data Vencimento">
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            {% for prod in lista_produtos %}
+                            <input type="text" name="{{ loop.counter }}" value="{{ prod }}">
+                            {% endfor %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

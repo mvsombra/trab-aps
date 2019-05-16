@@ -19,6 +19,11 @@ def index():
     sug = dba.produtos_mais_vendidos()
     return draw.render('index', p, sug)
 
+@app.route('/compra', methods=['POST'])
+def compra():
+    while(True):
+        pass
+
 
 @app.route('/dashboard')
 def dashboard():
