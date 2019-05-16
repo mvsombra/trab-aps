@@ -85,9 +85,10 @@
                         </div>
                         
                         <div class="modal-footer">
-                            {% for prod in lista_produtos %}
+                            {{ lista_produtos }}
+                            <!-- {% for prod  in lista_produtos %} 
                             <input type="text" name="{{ loop.counter }}" value="{{ prod }}">
-                            {% endfor %}
+                            {% endfor %} -->
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-danger">Excluir</button>
                         </div>
