@@ -21,7 +21,7 @@ def index():
 
 @app.route('/compra', methods=['POST'])
 def compra():
-    i = 0
+    i = 1
     while(True):
         if(request.form[str(i)]):
             dba.insert_compra(request.form[str(i)], session['user'])
