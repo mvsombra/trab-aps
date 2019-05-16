@@ -10,32 +10,6 @@
         <section class="productslider">
             <div class="container text-center">
                 <div class="row">
-                    {% set sugestao = args[1][0] %}
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding: 5px;">
-                        <div class="whitecolor">
-                            <h4 style="margin-top: 80px;">Você pode gostar</h4>
-                            <a href="produto/{{ sugestao[0] }}">
-                                <img alt="Exemplo" title="Exemplo" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" width="100%;">
-                            </a>
-                            <a href="produto/{{ sugestao[0] }}">
-                                <h6>{{ sugestao[3] }}</h6>
-                            </a>
-                            {% if sugestao[2] %}
-                            <h6>Preço: R${{ sugestao[1] }}</h6>
-                            <form method="POST" action="/carrinho">
-                                <input type="hidden" name="prod" value="{{ sugestao[0] }}">
-                                <input type="hidden" name="qtd" value="1">
-                                <button type="submit" name="add" class="addcart">Adicionar ao carrinho</button>
-                            </form>
-                            {% else %}
-                            <h6>Produto Indisponível</h6>
-                            <form method="POST" action="/notificacao">
-                                <input type="hidden" name="prod" value="{{ sugestao[0] }}">
-                                <button type="submit" name="add" class="notify">Receber Notificação</button>
-                            </form>
-                            {% endif %}
-                        </div>
-                    </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" style="padding: 5px;">
                         <div class="carousel slide " id="media">
                             <div class="carousel-inner">
