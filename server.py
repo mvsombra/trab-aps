@@ -24,7 +24,7 @@ def compra():
     i = 1
     while(True):
         if(request.form[str(i)]):
-            dba.insert_compra(request.form[str(i)], session['user'])
+            dba.insert_compra(request.form[str(i)], g.user[0])
         else:
             break
         i += 1
@@ -199,6 +199,7 @@ def before_request():
     g.user = None
     if('user' in session):
         g.user = dba.select_users(email=session['user'], max_results=1)
+        print(g.user)
 
 
 def notificar_usuarios(emails):
