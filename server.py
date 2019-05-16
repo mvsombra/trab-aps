@@ -120,9 +120,10 @@ def edit_produto(prod):
         return redirect(url_for('index'))
 
     if(request.method == 'POST'):
+        disp = bool(int(request.form['disp']))
         dba.update_produto(request.form['cod'], request.form['nome'],
-                           request.form['preco'], request.form['disp'],
-                           request.form['tipo'], request.form['desc'])
+                           request.form['preco'], disp, request.form['tipo'],
+                           request.form['descricao'])
         return redirect(url_for('index'))
 
     produto = dba.select_produtos(cod=prod)

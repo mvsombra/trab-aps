@@ -1,5 +1,6 @@
 {% include "includes/head.html" %}
 {% set carrinho = args[0] %}
+{% set ns = namespace(valor_total = 0) %}
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
         <title>Tapioca do Billy</title>
     </head>
@@ -12,6 +13,7 @@
         <div class="container">
             <div class="card-body">
                 {% for item in carrinho %}
+                {% set ns.valor_total = ns.valor_total + (item[1] * item[6]) %}
                 <div class="row">
                     <div class="col-xs-2 col-md-2">
                         <img class="img-responsive" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" width=100%>
@@ -46,7 +48,7 @@
             <div class="container">
                 <a href="#" class="btn btn-danger pull-right">Finalizar Compra</a>
                 <div class="pull-right" style="margin: 5px">
-                    Valor Total: <b>R$ 1.99</b>
+                    Valor Total: <b>R${{ ns.valor_total }}</b>
                 </div>
             </div>
         </div>

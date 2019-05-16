@@ -134,9 +134,9 @@ class AcessoBD:
         self.db.conn.commit()
 
     def update_produto(self, cod, nome, preco, disp, tipo, desc):
-        q = "UPDATE produto SET nome='{}', preco='{}', disponibilidade={}, " \
-            "tipo={}, descricao='{}' WHERE cod={};"
-        q = q.format(cod, preco, disp, nome, tipo, desc)
+        q = "UPDATE produto SET nome='{}', preco={}, disponibilidade={}, " \
+            "tipo={}, descricao='{}' WHERE cod='{}';"
+        q = q.format(nome, preco, disp, tipo, desc, cod)
 
         self.db.cur.execute(q)
         self.db.conn.commit()

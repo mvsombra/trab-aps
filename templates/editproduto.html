@@ -1,4 +1,5 @@
 {% include "includes/head.html" %}
+{% set produto = args[0][0] %}
         <title>Tapioca do Billy</title>
     </head>
 
@@ -8,18 +9,18 @@
         <img class="mb-4" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Adicionar Produto</h1>
         <label for="inputNome" class="sr-only">Código</label>
-        <input type="text" readonly id="inputCodigo2" maxlength="10" class="form-control" placeholder="Código" name="cod" required>
+        <input type="text" readonly id="inputCodigo2" maxlength="10" class="form-control" placeholder="Código" name="cod" required value="{{produto[0]}}">
         <label for="inputCodigo2" class="sr-only">Nome</label>
-        <input type="text" id="inputNome" class="form-control" placeholder="Nome" name="nome" required>
+        <input type="text" id="inputNome" class="form-control" placeholder="Nome" name="nome" value="{{ produto[3] }}" required>
         <label for="inpuPreco" class="sr-only">Preço</label>
-        <input type="number" min=1 step="any" id="inputPreco" class="form-control" placeholder="Preço" name="preco" required>
+        <input type="number" min=0 step="any" id="inputPreco" value="{{produto[1]}}"class="form-control" placeholder="Preço" name="preco" required>
         <label for="inputDisponibilidade" class="sr-only">Disponibilidade</label>
-        <input type="number" min=0 max=1 id="inputDisponibilidade" class="form-control" placeholder="Disponibilidade" name="disp" required>
+        <input type="number" min=0 max=1 id="inputDisponibilidade" value="{{ produto[2]|int }}" class="form-control" placeholder="Disponibilidade" name="disp" required>
         <label for="inputTipo" class="sr-only">Tipo</label>
-        <input type="number" min=0 max=1 id="inputTipo" class="form-control" placeholder="Tipo" name="tipo" required>
+        <input type="number" min=0 max=1 id="inputTipo" class="form-control" value="{{ produto[4] }}"placeholder="Tipo" name="tipo" required>
         <label for="inputDescricao" class="sr-only">Descrição</label>
-        <input type="text" id="inputDescricao" class="form-control" placeholder="Descrição" name="descricao" required>
-        <button class="btn btn-lg btn-danger btn-block" type="submit">Adicionar Produto</button>
+        <input type="text" id="inputDescricao" class="form-control" placeholder="Descrição" value="{{ produto[5] }}"name="descricao" required>
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Editar Produto</button>
         <p class="mt-5 mb-3 text-muted"><span id="copyright">© 2019 Tapioca do Billy - Todos os direitos Reservados</span></p>
     </form>
 </body>
