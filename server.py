@@ -21,8 +21,15 @@ def index():
 
 @app.route('/compra', methods=['POST'])
 def compra():
+    i = 0
     while(True):
-        pass
+        if(request.form[str(i)]):
+            dba.insert_compra(request.form[str(i)])
+        else:
+            break
+        i += 1
+    
+    return redirect(url_for('index'))
 
 
 @app.route('/dashboard')
