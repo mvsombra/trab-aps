@@ -29,6 +29,7 @@ def compra():
             break
         i += 1
     
+    dba.esvaziar_carrinho(session['user'])
     return redirect(url_for('index'))
 
 
