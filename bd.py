@@ -32,6 +32,13 @@ class AcessoBD:
         else:
             return self.db.cur.fetchall()
 
+    def insert_compra(self, prod, user):
+        q = "INSERT INTO produto_vendido (item, cliente) VALUES " \
+            "('{}', '{}');".format(prod, user)
+        self.db.cur.execute(q)
+        self.db.conn.commit()
+
+
     def produtos_mais_vendidos(self, item=True, valor=True, qtd=1, cat=None):
         if(item):
             q = "SELECT * FROM produto WHERE cod in (select cod from " \

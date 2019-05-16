@@ -24,7 +24,7 @@ def compra():
     i = 0
     while(True):
         if(request.form[str(i)]):
-            dba.insert_compra(request.form[str(i)])
+            dba.insert_compra(request.form[str(i)], session['user'])
         else:
             break
         i += 1
