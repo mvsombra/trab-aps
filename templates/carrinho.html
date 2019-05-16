@@ -1,6 +1,6 @@
 {% include "includes/head.html" %}
 {% set carrinho = args[0] %}
-{% set ns = namespace(valor_total = 0, lista_produtos = []) %}
+{% set ns = namespace(valor_total = 0) %}
 {% set lista_produtos = [] %}
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
         <title>Tapioca do Billy</title>
@@ -15,7 +15,7 @@
             <div class="card-body">
                 {% for item in carrinho %}
                 {% set ns.valor_total = ns.valor_total + (item[1] * item[6]) %}
-                {% ns.lista_produtos.append(item[0]) %}
+                {{ lista_produtos.append(item[0]) }}
                 <div class="row">
                     <div class="col-xs-2 col-md-2">
                         <img class="img-responsive" src="http://www.lopessupermercados.com.br/blog/wp-content/uploads/2017/12/shutterstock_3888248891.jpg" width=100%>
@@ -85,7 +85,7 @@
                         </div>
                         
                         <div class="modal-footer">
-                            {{ ns.lista_produtos }}
+                            {{ lista_produtos }}
                             <!-- {% for prod  in lista_produtos %} 
                             <input type="text" name="{{ loop.counter }}" value="{{ prod }}">
                             {% endfor %} -->
